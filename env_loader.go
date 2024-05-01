@@ -39,6 +39,9 @@ func LoadEnv(accepter interface{}) {
 			fmt.Println("[EnvLoaderError] :", err)
 			continue
 		}
+		if field.Type().Kind() != reflect.Interface && reflect.TypeOf(parsedResult).Kind() != field.Type().Kind() {
+			continue
+		}
 		field.Set(reflect.ValueOf(parsedResult))
 	}
 }

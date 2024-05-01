@@ -15,10 +15,10 @@ func newStringParser() *stringParser {
 	}
 }
 
-func (c *stringParser) Parse(target string, into reflect.Kind) (interface{}, error) {
-	parser, found := c.parserMap[into]
+func (c *stringParser) Parse(target string, targetType reflect.Kind) (interface{}, error) {
+	parser, found := c.parserMap[targetType]
 	if !found {
-		return nil, fmt.Errorf("unsupported type %v", into)
+		return nil, fmt.Errorf("unsupported type %v", targetType)
 	}
 	return parser(target)
 }
