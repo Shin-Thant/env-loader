@@ -13,7 +13,20 @@ type stc struct {
 
 func main() {
 	stc := stc{}
-	envloader.LoadEnv(&stc)
 
+	//* with custom path
+	err := envloader.LoadEnv(&stc, &envloader.LoadEnvOptions{
+		EnvPath: "./envs/.env.example",
+	})
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(stc)
+
+	//* with default path (.env)
+	err = envloader.LoadEnv(&stc, nil)
+	if err != nil {
+		fmt.Println(err)
+	}
 	fmt.Println(stc)
 }

@@ -28,7 +28,7 @@ func TestEnvLoader(t *testing.T) {
 	app := appEnv{
 		UnparsedField: unparsedField,
 	}
-	LoadEnv(&app)
+	LoadEnv(&app, nil)
 
 	if app.PORT != PORT {
 		t.Errorf("Incorrect result for PORT: got %d, want: %d\n", app.PORT, PORT)
