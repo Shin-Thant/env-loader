@@ -36,7 +36,6 @@ func LoadEnv(accepter interface{}, options *LoadEnvOptions) error {
 	}
 
 	valType := val.Type()
-	stringParser := newStringParser()
 
 	targetFindPath := ""
 	if options != nil {
@@ -55,6 +54,7 @@ func LoadEnv(accepter interface{}, options *LoadEnvOptions) error {
 		}
 	}
 
+	stringParser := newStringParser()
 	for i := 0; i < fieldCount; i++ {
 		fieldName := valType.Field(i).Name
 		envVal, found := getEnv(fieldName, envFilePath)

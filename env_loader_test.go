@@ -1,12 +1,14 @@
-package envloader
+package envloader_test
 
 import (
 	"os"
 	"strconv"
 	"testing"
+
+	envloader "github.com/Shin-Thant/env-loader"
 )
 
-func TestEnvLoader(t *testing.T) {
+func TestEnvLoader_Result(t *testing.T) {
 	PORT := 3000
 	DATABASE_URL := "postgres://postgres:pwd@localhost:5432/hello"
 	var unparsedField []int = nil
@@ -28,7 +30,7 @@ func TestEnvLoader(t *testing.T) {
 	app := appEnv{
 		UnparsedField: unparsedField,
 	}
-	LoadEnv(&app, nil)
+	envloader.LoadEnv(&app, nil)
 
 	if app.PORT != PORT {
 		t.Errorf("Incorrect result for PORT: got %d, want: %d\n", app.PORT, PORT)
@@ -44,5 +46,22 @@ func TestEnvLoader(t *testing.T) {
 	}
 	if app.IntInterfaceField != INT_VAL {
 		t.Errorf("Incorrect result for IntInterfaceField: got %v, want: `%s`\n", app.IntInterfaceField, INT_VAL)
+	}
+}
+
+func TestEnvLoader_LoadOptions(t *testing.T) {
+	type appEnv struct {
+		RandomField string
+	}
+	app := appEnv{}
+	err := envloader.LoadEnv(&app, &envloader.LoadEnvOptions{
+		EnvPath: "invalid path",
+	})
+	if err == nil {
+		t.Error("EnvLoader should return an error.")
+	}
+
+	if app.RandomField != "" {
+		t.Errorf("Incorrect result: got %s, expect empty string", app.RandomField)
 	}
 }
