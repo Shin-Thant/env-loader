@@ -18,7 +18,7 @@ Intorducing env-loader! Now you can just declare a struct type with the name of 
 
     ```golang
     type appEnv struct {
-        PORT 3500
+        PORT int
     }
     envConfig := appEnv
     envloader.LoadEnv(&envConfig, nil)
@@ -28,7 +28,7 @@ Intorducing env-loader! Now you can just declare a struct type with the name of 
 
     ```golang
     type appEnv struct {
-        PORT 3500
+        PORT int
     }
     envConfig := appEnv
     envloader.LoadEnv(&envConfig, &envloader.LoadEnvOptions{
