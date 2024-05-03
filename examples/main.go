@@ -16,7 +16,7 @@ func main() {
 
 	//* with custom path
 	err := envloader.LoadEnv(&stc, &envloader.LoadEnvOptions{
-		EnvPath: "./envs/.env.example",
+		EnvPath: "/.env.development",
 	})
 	if err != nil {
 		fmt.Println(err)
