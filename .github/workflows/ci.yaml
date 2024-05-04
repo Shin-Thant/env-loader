@@ -1,4 +1,4 @@
-name: Go
+name: Test and Publish Docker Image
 
 on:
     push:
@@ -15,12 +15,42 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v4
+
             - name: Setup Go ${{ matrix.go-version }}
               uses: actions/setup-go@v5
               with:
                   go-version: ${{ matrix.go-version }}
-            # You can test your matrix by printing the current Go version
+
             - name: Display Go version
               run: go version
+
             - name: Run test
               run: go test -v
+
+    publish:
+        name: Publish Docker image to Docker Hub
+        runs-one: ubuntu-latest
+        steps:
+            - name: Check out the repo
+              uses: actions/checkout@v4
+
+            - name: Login to Docker Hub
+              uses: docker/login-action@v3
+              with:
+                  username: ${{ secrets.DOCKERHUB_USERNAME }}
+                  password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+            - name: Extract metadata (tags and labels) for Docker
+              id: meta
+              uses: docker/metadata-action@v5
+              with:
+                  images: shinthant101/env-loader
+
+            - name: Build and Push Docker Image
+              uses: docker/build-push-action@v5
+              with:
+                  context: .
+                  file: ./Dockerfile
+                  push: true
+                  tags: ${{ steps.meta.outputs.tags }}
+                  labels: ${{ steps.meta.outputs.labels }}
