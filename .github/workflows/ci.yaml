@@ -29,7 +29,7 @@ jobs:
 
     publish:
         name: Publish Docker image to Docker Hub
-        runs-one: ubuntu-latest
+        runs-on: ubuntu-latest
         steps:
             - name: Check out the repo
               uses: actions/checkout@v4
