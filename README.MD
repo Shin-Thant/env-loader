@@ -41,3 +41,9 @@ Intorducing env-loader! Now you can just declare a struct type with the name of 
         EnvPath: "/.env.development",
     })
     ```
+
+## Docker
+
+```bash
+docker run --name envloader_test -it --rm shinthant101/env-loader:main
+```
