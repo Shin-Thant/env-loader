@@ -2,6 +2,12 @@
 
 **Env-Loader is a tool that loads and parses environment variables into a struct.**
 
+## Installation
+
+```bash
+go get github.com/Shin-Thant/env-loader
+```
+
 ## Motivations
 
 If you're like me, you wouldn't like to write multiple `os.LookupEnv()` multiple times. Even if you have no problem with writing multiple `os.LookupEnv()`, you still have to parse strings into respective types.
